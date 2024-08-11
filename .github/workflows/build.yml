@@ -26,11 +26,14 @@ jobs:
 
       - name: Build, tag, and push the Docker image
         env:
-          ECR_REPOSITORY: 058264302992.dkr.ecr.eu-central-1.amazonaws.com/picus-app-repo:latest
+          ECR_REPOSITORY: 058264302992.dkr.ecr.eu-central-1.amazonaws.com/picus-app-repo
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REPOSITORY:$IMAGE_TAG -f src/Dockerfile src/
           docker push $ECR_REPOSITORY:$IMAGE_TAG
+
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG $ECR_REPOSITORY:latest
+          docker push $ECR_REPOSITORY:latest
 
       - name: Output Image URI
         run: echo "IMAGE_URI=${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}" >> $GITHUB_ENV
