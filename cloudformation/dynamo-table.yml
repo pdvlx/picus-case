@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template to create a DynamoDB table for Picus Case.
+
+Resources:
+  PicusTable:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      TableName: PicusTable
+      AttributeDefinitions: 
+        - AttributeName: id
+          AttributeType: S
+      KeySchema: 
+        - AttributeName: id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+      StreamSpecification:
+        StreamViewType: NEW_IMAGE
+      SSESpecification:
+        SSEEnabled: true
+      Tags: 
+        - Key: Environment
+          Value: production
+
+  StoreDynamoDBArn:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /Picus/DynamoDB/Arn
+      Type: String
+      Value: !GetAtt PicusTable.Arn
+
+Outputs:
+  TableName:
+    Description: "The name of the DynamoDB table"
+    Value: !Ref PicusTable
+    Export:
+      Name: PicusTableName
+  TableArn:
+    Description: "The ARN of the DynamoDB table"
+    Value: !GetAtt PicusTable.Arn
+    Export:
+      Name: PicusTableArn
