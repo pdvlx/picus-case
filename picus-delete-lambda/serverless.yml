@@ -1,0 +1,58 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: akinozen
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: picus-delete-lambda
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: picus-delete-lambda
+provider:
+  name: aws
+  runtime: python3.9
+  region: eu-central-1
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DeleteItem
+      Resource: !Sub "${ssm:/Picus/DynamoDB/Arn}"
+
+functions:
+  deleteItem:
+    handler: handler.delete_item
+    events:
+      - http:
+          path: picus/{key}
+          method: delete
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+
+resources:
+  Resources:
+    PicusDeleteLambdaExecutionRole:
+      Type: AWS::IAM::Role
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: PicusDeleteLambdaPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                    - dynamodb:DeleteItem
+                  Resource: 
+                    - !Sub "${ssm:/Picus/DynamoDB/Arn}"

@@ -1,3 +1,7 @@
+# Lambda modules
+picus-delete-lambda/node_modules
+
+
 # Virtual environment
 venv/
 .env/
