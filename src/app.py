@@ -1,9 +1,10 @@
-from flask import Flask, request
+from flask import Flask, Response, request
 from handlers import get_item, list_items, put_item
 from middleware.error_handler import handle_errors
 import boto3
 import os
 import logging
+import json
 
 app = Flask(__name__)
 
@@ -16,6 +17,12 @@ dynamodb = boto3.resource('dynamodb', region_name=REGION)
 table = dynamodb.Table(TABLE_NAME)
 
 handle_errors(app)
+
+@app.route('/', methods=['GET'])
+def healthcheck():
+    response_data = {"status": "healthy"}
+    response_json = json.dumps(response_data)
+    return Response(response=response_json, status=200, mimetype='application/json')
 
 @app.route('/picus/get/<string:key>', methods=['GET'])
 def get_item_route(key):
