@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  PicusCodeDeployApplication:
+    Type: AWS::CodeDeploy::Application
+    Properties:
+      ComputePlatform: ECS
+
+  PicusCodeDeployDeploymentGroup:
+    Type: AWS::CodeDeploy::DeploymentGroup
+    Properties:
+      ApplicationName: !Ref PicusCodeDeployApplication
+      DeploymentGroupName: picus-deployment-group
+      ServiceRoleArn: !ImportValue PicusCodeDeployServiceRole
+      DeploymentConfigName: CodeDeployDefault.ECSAllAtOnce
+      DeploymentStyle:
+        DeploymentType: BLUE_GREEN
+        DeploymentOption: WITH_TRAFFIC_CONTROL
+      BlueGreenDeploymentConfiguration:
+        TerminateBlueInstancesOnDeploymentSuccess:
+          Action: TERMINATE
+          TerminationWaitTimeInMinutes: 5
+        DeploymentReadyOption:
+          ActionOnTimeout: CONTINUE_DEPLOYMENT
+          WaitTimeInMinutes: 0
+      ECSServices:
+        - ClusterName: !ImportValue PicusECSClusterId
+          ServiceName: "picus-service"
+      LoadBalancerInfo:
+        TargetGroupPairInfoList:
+          - TargetGroups:
+              - Name: !ImportValue PicusTargetGroupBlueArn
+              - Name: !ImportValue PicusTargetGroupGreenArn
+            ProdTrafficRoute:
+              ListenerArns:
+                - !ImportValue PicusLoadBalancerListenerArn
+
+Outputs:
+  CodeDeployApplicationId:
+    Value: !Ref PicusCodeDeployApplication
+    Export:
+      Name: PicusCodeDeployApplicationId
