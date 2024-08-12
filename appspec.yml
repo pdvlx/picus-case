@@ -1,9 +1,0 @@
-version: 0.0
-Resources:
-  - TargetService:
-      Type: AWS::ECS::Service
-      Properties:
-        TaskDefinition: "arn:aws:ecs:eu-central-1:058264302992:task-definition/picus-task:22"
-        LoadBalancerInfo:
-          ContainerName: "picus-app"
-          ContainerPort: 80
