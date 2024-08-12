@@ -1,2 +1,4 @@
 Flask
 boto3
+pytest
+pytest-mock
