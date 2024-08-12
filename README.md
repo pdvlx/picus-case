@@ -14,7 +14,8 @@ It was very entertaining and instructive case for me. I started to work on the c
 - [CI/CD Pipeline](#cicd-pipeline)
 - [Monitoring and Logging](#monitoring-and-logging)
 - [Security](#security)
-- [How to Use](#how-to-use)
+- [Testing](#testing)
+- [Improvements](#improvements)
 
 ## Architecture
 
@@ -141,7 +142,7 @@ Testing is a crucial part of ensuring that the application functions correctly. 
     -   Tests are run automatically as part of the CI/CD pipeline using GitHub Actions. The pipeline ensures that code is tested before it is built and deployed, preventing faulty code from reaching production.
 
 
-### Improvements
+## Improvements
 
 Reflecting on the development and deployment of this project,I identified several opportunities for improvement that could enhance the overall quality of the application.
 
