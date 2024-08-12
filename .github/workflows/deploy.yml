@@ -26,7 +26,23 @@ jobs:
           echo "$NEW_TASK_DEF" > new-task-def.json
           TASK_DEF_ARN=$(aws ecs register-task-definition --cli-input-json file://new-task-def.json | jq -r '.taskDefinition.taskDefinitionArn')
           echo "::set-output name=task-definition-arn::$TASK_DEF_ARN"
-          sed -i "s|<NEW_TASK_DEFINITION_ARN>|$TASK_DEF_ARN|g" appspec.yml
+
+      - name: Create appspec.yml
+        run: |
+          cat <<EOT >> appspec.yml
+          version: 0.0
+          Resources:
+            - TargetService:
+                Type: AWS::ECS::Service
+                Properties:
+                  TaskDefinition: "$TASK_DEF_ARN"
+                  LoadBalancerInfo:
+                    ContainerName: "picus-app"
+                    ContainerPort: 80
+          EOT
+
+      - name: Upload appspec.yml to S3
+        run: |
           aws s3 cp appspec.yml s3://picus-deployment-bucket/deployments/appspec.yml
 
       - name: Deploy to ECS using CodeDeploy
