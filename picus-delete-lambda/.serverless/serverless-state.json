@@ -188,7 +188,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/picus-delete-lambda/dev/1723388420586-2024-08-11T15:00:20.586Z/picus-delete-lambda.zip"
+                "S3Key": "serverless/picus-delete-lambda/dev/1723458644687-2024-08-12T10:30:44.687Z/picus-delete-lambda.zip"
               },
               "Handler": "handler.delete_item",
               "Runtime": "python3.9",
@@ -206,14 +206,14 @@
               "DeleteItemLogGroup"
             ]
           },
-          "DeleteItemLambdaVersionJINJCyfylrqkdJlYon9p7RlI6CO2kMcX8v9FCPr6k": {
+          "DeleteItemLambdaVersionR9CLlqFEGbAr8ACKvpYFQf4j3W7RAw0g76qqny4": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DeleteItemLambdaFunction"
               },
-              "CodeSha256": "fPZytNs9l0uPI7MMw0jvmwSV4jBa4rN2FTV6bb5t8aY="
+              "CodeSha256": "YlEIcFBLwHBd0Faob8UIuxtAi5llGmxGtBE8td44R+o="
             }
           },
           "ApiGatewayRestApi": {
@@ -301,7 +301,7 @@
               "DeleteItemLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1723388409679": {
+          "ApiGatewayDeployment1723458633174": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -406,7 +406,7 @@
           "DeleteItemLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DeleteItemLambdaVersionJINJCyfylrqkdJlYon9p7RlI6CO2kMcX8v9FCPr6k"
+              "Ref": "DeleteItemLambdaVersionR9CLlqFEGbAr8ACKvpYFQf4j3W7RAw0g76qqny4"
             },
             "Export": {
               "Name": "sls-picus-delete-lambda-dev-DeleteItemLambdaFunctionQualifiedArn"
@@ -551,7 +551,7 @@
         "timeout": 6,
         "runtime": "python3.9",
         "vpc": {},
-        "versionLogicalId": "DeleteItemLambdaVersionJINJCyfylrqkdJlYon9p7RlI6CO2kMcX8v9FCPr6k"
+        "versionLogicalId": "DeleteItemLambdaVersionR9CLlqFEGbAr8ACKvpYFQf4j3W7RAw0g76qqny4"
       }
     },
     "resources": {
@@ -632,7 +632,7 @@
     "artifact": "/Users/akin/Desktop/picus-business-case/picus-delete-lambda/.serverless/picus-delete-lambda.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/picus-delete-lambda/dev/1723388420586-2024-08-11T15:00:20.586Z",
+    "artifactDirectoryName": "serverless/picus-delete-lambda/dev/1723458644687-2024-08-12T10:30:44.687Z",
     "artifact": "picus-delete-lambda.zip"
   }
 }
