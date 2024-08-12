@@ -20,6 +20,8 @@ jobs:
 
       - name: Register new task definition with ECS
         id: task_definition
+        env:
+          IMAGE_URI: ${{ github.event.workflow_run.conclusion.job_outputs.IMAGE_URI }}
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition picus-task)
           NEW_TASK_DEF=$(echo $TASK_DEFINITION | jq --arg IMAGE "$IMAGE_URI" '.taskDefinition | .containerDefinitions[0].image=$IMAGE | del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
