@@ -1,6 +1,13 @@
+import sys
+import os
+
+# Add the src directory to sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../src')))
+
+
 import pytest
 from unittest.mock import MagicMock
-from src.handlers import get_item, list_items, put_item
+from handlers import get_item, list_items, put_item
 
 @pytest.fixture
 def mock_table():
