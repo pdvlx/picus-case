@@ -28,8 +28,8 @@ Resources:
       LoadBalancerInfo:
         TargetGroupPairInfoList:
           - TargetGroups:
-              - Name: !ImportValue PicusTargetGroupBlueArn
-              - Name: !ImportValue PicusTargetGroupGreenArn
+              - Name: !ImportValue PicusTargetGroupBlueName
+              - Name: !ImportValue PicusTargetGroupGreenName
             ProdTrafficRoute:
               ListenerArns:
                 - !ImportValue PicusLoadBalancerListenerArn

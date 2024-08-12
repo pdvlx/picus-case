@@ -126,3 +126,11 @@ Outputs:
     Value: !Ref Listener
     Export:
       Name: PicusLoadBalancerListenerArn
+  TargetGroupBlueName:
+    Value: !GetAtt TargetGroupBlue.TargetGroupName
+    Export:
+      Name: PicusTargetGroupBlueName
+  TargetGroupGreenName:
+    Value: !GetAtt TargetGroupGreen.TargetGroupName
+    Export:
+      Name: PicusTargetGroupGreenName

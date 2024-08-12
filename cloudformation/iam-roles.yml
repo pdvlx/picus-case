@@ -97,14 +97,20 @@ Resources:
                   - codedeploy:*
                   - ecs:UpdateService
                   - ecs:DescribeServices
+                  - ecs:DescribeTaskDefinition
+                  - ecs:DescribeTasks
+                  - ecs:ListTasks
                   - elasticloadbalancing:DescribeTargetGroups
                   - elasticloadbalancing:DescribeListeners
                   - elasticloadbalancing:ModifyTargetGroupAttributes
                   - elasticloadbalancing:ModifyListener
                   - elasticloadbalancing:RegisterTargets
                   - elasticloadbalancing:DeregisterTargets
-                Resource: "*"
-
+                  - s3:GetObject           
+                  - s3:ListBucket          
+                Resource:
+                  - "arn:aws:s3:::picus-deployment-bucket"          
+                  - "arn:aws:s3:::picus-deployment-bucket/*"    
 Outputs:
   PicusCodeDeployServiceRole:
     Value: !GetAtt CodeDeployServiceRole.Arn
