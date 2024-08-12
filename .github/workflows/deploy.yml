@@ -1,10 +1,10 @@
 name: Deploy to ECS with CodeDeploy
 
 on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main 
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
 
 jobs:
   deploy:
