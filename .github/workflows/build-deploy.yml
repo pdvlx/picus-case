@@ -49,7 +49,7 @@ jobs:
 
       - name: Create appspec.yml
         run: |
-          cat <<EOT >> appspec.yml
+          cat <<EOT > appspec.yml
           version: 0.0
           Resources:
             - TargetService:
